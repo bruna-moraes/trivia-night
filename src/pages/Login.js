@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   state = {
@@ -31,6 +32,14 @@ class Login extends React.Component {
     }, this.validateForm);
   };
 
+  handleClick = async () => {
+    const { history } = this.props;
+    const fetchApi = await fetch('https://opentdb.com/api_token.php?command=request');
+    const response = await fetchApi.json();
+    localStorage.setItem('token', response.token);
+    await history.push('/game');
+  };
+
   render() {
     const { isDisabled, name, email } = this.state;
 
@@ -60,6 +69,7 @@ class Login extends React.Component {
         <button
           data-testid="btn-play"
           disabled={ !isDisabled }
+          onClick={ this.handleClick }
           type="button"
         >
           Play
@@ -69,5 +79,11 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.array,
+  //   dispatch: PropTypes.func,
+
+}.isRequired;
 
 export default connect()(Login);
