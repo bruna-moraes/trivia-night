@@ -32,6 +32,7 @@ class Login extends React.Component {
     }, this.validateForm);
   };
 
+  // oioioi
   handleClick = async () => {
     const { history } = this.props;
     const fetchApi = await fetch('https://opentdb.com/api_token.php?command=request');
