@@ -64,6 +64,18 @@ class Login extends React.Component {
         >
           Play
         </button>
+        <button
+          data-testid="btn-settings"
+          type="button"
+        >
+          Settings
+        </button>
+        <button
+          data-testid="settings-title"
+          type="button"
+        >
+          Title
+        </button>
       </form>
 
     );
