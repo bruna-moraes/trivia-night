@@ -29,14 +29,14 @@ class Login extends React.Component {
       {
         [name]: value,
       },
-      this.validateForm
+      this.validateForm,
     );
   };
 
   handleClick = async () => {
     const { history } = this.props;
     const fetchApi = await fetch(
-      'https://opentdb.com/api_token.php?command=request'
+      'https://opentdb.com/api_token.php?command=request',
     );
     const response = await fetchApi.json();
     localStorage.setItem('token', response.token);
@@ -56,28 +56,28 @@ class Login extends React.Component {
         <label htmlFor="name">
           Name:
           <input
-            value={name}
+            value={ name }
             type="text"
             data-testid="input-player-name"
             name="name"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
           />
         </label>
 
         <label htmlFor="input-gravatar-email">
           Email:
           <input
-            value={email}
+            value={ email }
             type="email"
             data-testid="input-gravatar-email"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="email"
           />
         </label>
         <button
           data-testid="btn-play"
-          disabled={!isDisabled}
-          onClick={this.handleClick}
+          disabled={ !isDisabled }
+          onClick={ this.handleClick }
           type="button"
         >
           Play
@@ -85,7 +85,7 @@ class Login extends React.Component {
         <button
           data-testid="btn-settings"
           type="button"
-          onClick={this.ClickSettingsPage}
+          onClick={ this.ClickSettingsPage }
         >
           Settings
         </button>
