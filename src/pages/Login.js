@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   state = {
     name: '',
     email: '',
     isDisabled: false,
-
   };
 
   validateForm = () => {
@@ -15,8 +15,7 @@ class Login extends React.Component {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const minNameLength = 1;
 
-    const isDisabled = name.length >= minNameLength
-        && emailRegex.test(email);
+    const isDisabled = name.length >= minNameLength && emailRegex.test(email);
 
     this.setState({
       isDisabled,
@@ -26,9 +25,27 @@ class Login extends React.Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
 
-    this.setState({
-      [name]: value,
-    }, this.validateForm);
+    this.setState(
+      {
+        [name]: value,
+      },
+      this.validateForm,
+    );
+  };
+
+  handleClick = async () => {
+    const { history } = this.props;
+    const fetchApi = await fetch(
+      'https://opentdb.com/api_token.php?command=request',
+    );
+    const response = await fetchApi.json();
+    localStorage.setItem('token', response.token);
+    await history.push('/game');
+  };
+
+  ClickSettingsPage = () => {
+    const { history } = this.props;
+    history.push('/settings');
   };
 
   render() {
@@ -60,6 +77,7 @@ class Login extends React.Component {
         <button
           data-testid="btn-play"
           disabled={ !isDisabled }
+          onClick={ this.handleClick }
           type="button"
         >
           Play
@@ -67,19 +85,18 @@ class Login extends React.Component {
         <button
           data-testid="btn-settings"
           type="button"
+          onClick={ this.ClickSettingsPage }
         >
           Settings
         </button>
-        <button
-          data-testid="settings-title"
-          type="button"
-        >
-          Title
-        </button>
       </form>
-
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.array,
+  //   dispatch: PropTypes.func,
+}.isRequired;
 
 export default connect()(Login);
