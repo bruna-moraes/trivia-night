@@ -1,16 +1,19 @@
 import React from 'react';
-// import logo from './trivia.png';
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Game from './pages/Game';
+import Settings from './pages/Settings';
+import './App.css';
+
+// import logo from './trivia.png';
 
 export default function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/game" component={ Game } />
+        <Route path="/game" component={ Game } />
+        <Route path="/settings" component={ Settings } />
       </Switch>
     </div>
     // <div className="App">
@@ -20,7 +23,6 @@ export default function App() {
     //   </header>
     // </div>
     // <div>
-
-  // </div>
+    // </div>
   );
 }
