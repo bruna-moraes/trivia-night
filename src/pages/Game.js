@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Question from '../components/Question';
 import fetchTrivia from '../services/fetchTrivia';
@@ -7,6 +8,7 @@ class Game extends React.Component {
   state = {
     questions: [],
     isLoading: true,
+    shouldLogout: false,
   };
 
   async componentDidMount() {
@@ -14,32 +16,42 @@ class Game extends React.Component {
   }
 
   getQuestions = async () => {
-    // const token = localStorage.getItem('token');
-    const token = 'f898c22ea128c068fec268e3803a8d6e86d7e8b66ff5a1e4ff008bd840207f6f';
+    const token = localStorage.getItem('token');
 
-    const questions = await fetchTrivia(token);
+    const { results, response_code: responseCode } = await fetchTrivia(token);
+
+    const invalidToken = 3;
 
     this.setState({
-      questions,
+      questions: results,
       isLoading: false,
+      shouldLogout: responseCode === invalidToken,
     });
   };
 
   render() {
-    const { questions, isLoading } = this.state;
+    const { questions, isLoading, shouldLogout } = this.state;
     return (
-      <>
-        <Header />
+      <div>
         {
-          isLoading
-            ? <span>Loading...</span>
+          shouldLogout
+            ? <Redirect to="/" />
             : (
-              <Question
-                question={ questions[0] }
-              />
+              <div>
+                <Header />
+                {
+                  isLoading
+                    ? <span>Loading...</span>
+                    : (
+                      <Question
+                        question={ questions[0] }
+                      />
+                    )
+                }
+              </div>
             )
         }
-      </>
+      </div>
     );
   }
 }

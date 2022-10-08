@@ -28,34 +28,36 @@ class Question extends React.Component {
         >
           {question}
         </span>
-        {
-          shuffleAnswers.map((answer) => {
-            if (answer === correctAnswer) {
+
+        <div data-testid="answer-options">
+          {
+            shuffleAnswers.map((answer) => {
+              if (answer === correctAnswer) {
+                return (
+                  <button
+                    key={ answer }
+                    type="button"
+                    data-testid="correct-answer"
+                  >
+                    {correctAnswer}
+                  </button>
+                );
+              }
+
+              const index = incorrectAnswers.indexOf(answer);
+
               return (
                 <button
                   key={ answer }
                   type="button"
-                  data-testid="correct-answer"
+                  data-testid={ `wrong-answer-${index}` }
                 >
-                  {correctAnswer}
+                  {answer}
                 </button>
               );
-            }
-
-            const index = incorrectAnswers.indexOf(answer);
-
-            return (
-              <button
-                key={ answer }
-                type="button"
-                data-testid={ `wrong-answer-${index}` }
-              >
-                {answer}
-              </button>
-            );
-          })
-        }
-
+            })
+          }
+        </div>
       </div>
     );
   }
