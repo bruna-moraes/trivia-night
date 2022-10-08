@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import shuffleArray from '../utils/shuffleArray';
 
 class Question extends React.Component {
+  state = {
+    answered: false,
+  };
+
+  handleAnswer = () => {
+    this.setState({
+      answered: true,
+    });
+  };
+
   render() {
+    const { answered } = this.state;
     const {
       question: {
         category,
@@ -38,6 +49,8 @@ class Question extends React.Component {
                     key={ answer }
                     type="button"
                     data-testid="correct-answer"
+                    onClick={ () => this.handleAnswer() }
+                    className={ answered ? 'correct-answered' : '' }
                   >
                     {correctAnswer}
                   </button>
@@ -51,6 +64,8 @@ class Question extends React.Component {
                   key={ answer }
                   type="button"
                   data-testid={ `wrong-answer-${index}` }
+                  onClick={ () => this.handleAnswer() }
+                  className={ answered ? 'incorrect-answered' : '' }
                 >
                   {answer}
                 </button>
