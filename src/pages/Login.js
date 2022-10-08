@@ -24,26 +24,18 @@ class Login extends React.Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-
-    this.setState(
-      {
-        [name]: value,
-      },
-      this.validateForm,
-    );
+    this.setState({ [name]: value }, this.validateForm);
   };
 
   handleClick = async () => {
     const { history } = this.props;
-    const fetchApi = await fetch(
-      'https://opentdb.com/api_token.php?command=request',
-    );
+    const fetchApi = await fetch('https://opentdb.com/api_token.php?command=request');
     const response = await fetchApi.json();
     localStorage.setItem('token', response.token);
     await history.push('/game');
   };
 
-  ClickSettingsPage = () => {
+  clickSettingsPage = () => {
     const { history } = this.props;
     history.push('/settings');
   };
@@ -85,7 +77,7 @@ class Login extends React.Component {
         <button
           data-testid="btn-settings"
           type="button"
-          onClick={ this.ClickSettingsPage }
+          onClick={ this.clickSettingsPage }
         >
           Settings
         </button>
