@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
 
 class Feedback extends React.Component {
   clickRanking = () => {
@@ -16,7 +17,7 @@ class Feedback extends React.Component {
   render() {
     return (
       <div>
-        <h1>Feedback</h1>
+        <Header />
         <button
           type="button"
           data-testid="btn-ranking"
