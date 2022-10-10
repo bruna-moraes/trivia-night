@@ -9,6 +9,7 @@ class Game extends React.Component {
     questions: [],
     isLoading: true,
     shouldLogout: false,
+    questionIndex: 0,
   };
 
   async componentDidMount() {
@@ -29,8 +30,15 @@ class Game extends React.Component {
     });
   };
 
+  updateIndex = () => {
+    this.setState((prevState) => ({
+      questionIndex: prevState.questionIndex + 1,
+    }));
+  };
+
   render() {
-    const { questions, isLoading, shouldLogout } = this.state;
+    const { questions, isLoading, shouldLogout, questionIndex } = this.state;
+
     return (
       <div>
         {
@@ -44,7 +52,8 @@ class Game extends React.Component {
                     ? <span>Loading...</span>
                     : (
                       <Question
-                        question={ questions[0] }
+                        question={ questions[questionIndex] }
+                        updateIndex={ this.updateIndex }
                       />
                     )
                 }
