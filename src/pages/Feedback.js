@@ -24,15 +24,16 @@ class Feedback extends React.Component {
         >
           Ranking
         </button>
-      </div>
+      
 
-      <button
-        type="button"
-        data-testid="btn-play-again"
-        onClick={ this.clickPlayAgain }
-      >
-        Jogar Novamente
-      </button>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ this.clickPlayAgain }
+        >
+          Jogar Novamente
+        </button>
+      </div>
     );
   }
 }
