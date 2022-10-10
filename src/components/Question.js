@@ -85,6 +85,20 @@ class Question extends React.Component {
     }, intervalTime);
   };
 
+  goToNextQuestion = async () => {
+    const { updateIndex } = this.props;
+
+    await updateIndex();
+
+    this.setState({
+      answered: false,
+      timer: 30,
+    });
+
+    this.shuffleAnswers();
+    this.startTimer();
+  };
+
   render() {
     const { answers, answered, timer } = this.state;
     const {
@@ -94,7 +108,6 @@ class Question extends React.Component {
         correct_answer: correctAnswer,
         incorrect_answers: incorrectAnswers,
       },
-      updateIndex,
     } = this.props;
 
     return (
@@ -153,7 +166,7 @@ class Question extends React.Component {
           <button
             data-testid="btn-next"
             type="button"
-            onClick={ updateIndex }
+            onClick={ this.goToNextQuestion }
           >
             Next
           </button>
