@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Header from '../components/Header';
 import Question from '../components/Question';
 import fetchTrivia from '../services/fetchTrivia';
@@ -31,6 +33,14 @@ class Game extends React.Component {
   };
 
   updateIndex = () => {
+    const { questionIndex } = this.state;
+    const lastQuestionIndex = 4;
+
+    if (questionIndex === lastQuestionIndex) {
+      const { history } = this.props;
+      history.push('/feedback');
+    }
+
     this.setState((prevState) => ({
       questionIndex: prevState.questionIndex + 1,
     }));
@@ -64,5 +74,9 @@ class Game extends React.Component {
     );
   }
 }
+
+Game.propTypes = {
+  history: PropTypes.array,
+}.isRequired;
 
 export default Game;
