@@ -1,9 +1,9 @@
-import { ADD_INFO_LOGIN } from '../actions';
+import { ADD_INFO_LOGIN, UPDATE_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
-  score: '',
+  score: 0,
   gravatarEmail: '',
 };
 
@@ -14,6 +14,13 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       name: action.payload.name,
       gravatarEmail: action.payload.email,
+    };
+  }
+  case UPDATE_SCORE: {
+    return {
+      ...state,
+      assertions: state.assertions + 1,
+      score: state.score + action.score,
     };
   }
   default:
