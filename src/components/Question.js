@@ -69,6 +69,7 @@ class Question extends React.Component {
         correct_answer: correctAnswer,
         incorrect_answers: incorrectAnswers,
       },
+      updateIndex,
     } = this.props;
 
     return (
@@ -122,6 +123,16 @@ class Question extends React.Component {
             })
           }
         </div>
+
+        { answered ? (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ updateIndex }
+          >
+            Next
+          </button>
+        ) : null}
       </div>
     );
   }
@@ -136,6 +147,7 @@ Question.propTypes = {
       PropTypes.string.isRequired,
     ).isRequired,
   }).isRequired,
+  updateIndex: PropTypes.func.isRequired,
 };
 
 export default Question;
