@@ -27,9 +27,9 @@ class Feedback extends React.Component {
       </div>
 
       <button
-      type="button"
-      data-testid="btn-play-again"
-      onClick={ this.clickPlayAgain }
+        type="button"
+        data-testid="btn-play-again"
+        onClick={ this.clickPlayAgain }
       >
         Jogar Novamente
       </button>
