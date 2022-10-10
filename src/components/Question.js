@@ -4,17 +4,64 @@ import shuffleArray from '../utils/shuffleArray';
 
 class Question extends React.Component {
   state = {
+    answers: [],
     answered: false,
+    timer: 30,
+  };
+
+  componentDidMount() {
+    this.shuffleAnswers();
+    this.startTimer();
+  }
+
+  componentDidUpdate() {
+    const { timer, answered } = this.state;
+
+    if (timer === 0 && !answered) {
+      this.handleAnswer();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  shuffleAnswers = () => {
+    const {
+      question: {
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      },
+    } = this.props;
+
+    const answers = [...incorrectAnswers, correctAnswer];
+    const shuffleAnswers = shuffleArray(answers);
+
+    this.setState({
+      answers: shuffleAnswers,
+    });
   };
 
   handleAnswer = () => {
     this.setState({
       answered: true,
     });
+
+    clearInterval(this.interval);
+  };
+
+  startTimer = () => {
+    const intervalTime = 1000;
+
+    this.interval = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, intervalTime);
   };
 
   render() {
-    const { answered } = this.state;
+    const { answers, answered, timer } = this.state;
     const {
       question: {
         category,
@@ -23,9 +70,6 @@ class Question extends React.Component {
         incorrect_answers: incorrectAnswers,
       },
     } = this.props;
-
-    const answers = [...incorrectAnswers, correctAnswer];
-    const shuffleAnswers = shuffleArray(answers);
 
     return (
       <div>
@@ -39,10 +83,13 @@ class Question extends React.Component {
         >
           {question}
         </span>
+        <span>
+          { timer }
+        </span>
 
         <div data-testid="answer-options">
           {
-            shuffleAnswers.map((answer) => {
+            answers.map((answer) => {
               if (answer === correctAnswer) {
                 return (
                   <button
@@ -51,6 +98,7 @@ class Question extends React.Component {
                     data-testid="correct-answer"
                     onClick={ () => this.handleAnswer() }
                     className={ answered ? 'correct-answered' : '' }
+                    disabled={ answered }
                   >
                     {correctAnswer}
                   </button>
@@ -66,6 +114,7 @@ class Question extends React.Component {
                   data-testid={ `wrong-answer-${index}` }
                   onClick={ () => this.handleAnswer() }
                   className={ answered ? 'incorrect-answered' : '' }
+                  disabled={ answered }
                 >
                   {answer}
                 </button>
