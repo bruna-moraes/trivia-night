@@ -9,9 +9,9 @@ class Feedback extends React.Component {
   };
 
   clickPlayAgain = () => {
-    const { history } =this.props;
+    const { history } = this.props;
     history.push('/');
-  }
+  };
 
   render() {
     return (
@@ -24,8 +24,6 @@ class Feedback extends React.Component {
         >
           Ranking
         </button>
-      
-
         <button
           type="button"
           data-testid="btn-play-again"
