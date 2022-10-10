@@ -21,7 +21,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { name } = this.props;
+    const { name, score } = this.props;
     const { emailHASH } = this.state;
     return (
       <header>
@@ -31,7 +31,7 @@ class Header extends React.Component {
           data-testid="header-profile-picture"
         />
         <h3 data-testid="header-player-name">{name}</h3>
-        <h3 data-testid="header-score">0</h3>
+        <h3 data-testid="header-score">{ score }</h3>
       </header>
     );
   }
@@ -40,7 +40,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   emailGravatar: state.player.gravatarEmail,
   name: state.player.name,
-  // score: state.player.score,
+  score: state.player.score,
 });
 
 Header.propTypes = {
