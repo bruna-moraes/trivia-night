@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { updateScoreAction } from '../redux/actions';
 import shuffleArray from '../utils/shuffleArray';
 
 class Question extends React.Component {
@@ -42,12 +45,34 @@ class Question extends React.Component {
     });
   };
 
-  handleAnswer = () => {
+  handleAnswer = (answer) => {
     this.setState({
       answered: true,
     });
 
     clearInterval(this.interval);
+
+    const {
+      question: {
+        correct_answer: correctAnswer,
+        difficulty,
+      },
+      updateScore,
+    } = this.props;
+    const { timer } = this.state;
+
+    if (answer === correctAnswer) {
+      const minScore = 10;
+      const dict = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+      };
+
+      const score = minScore + (timer * dict[difficulty]);
+
+      updateScore(score);
+    }
   };
 
   startTimer = () => {
@@ -96,7 +121,7 @@ class Question extends React.Component {
                     key={ answer }
                     type="button"
                     data-testid="correct-answer"
-                    onClick={ () => this.handleAnswer() }
+                    onClick={ () => this.handleAnswer(answer) }
                     className={ answered ? 'correct-answered' : '' }
                     disabled={ answered }
                   >
@@ -112,7 +137,7 @@ class Question extends React.Component {
                   key={ answer }
                   type="button"
                   data-testid={ `wrong-answer-${index}` }
-                  onClick={ () => this.handleAnswer() }
+                  onClick={ () => this.handleAnswer(answer) }
                   className={ answered ? 'incorrect-answered' : '' }
                   disabled={ answered }
                 >
@@ -131,11 +156,17 @@ Question.propTypes = {
   question: PropTypes.shape({
     category: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
+    difficulty: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
     incorrect_answers: PropTypes.arrayOf(
       PropTypes.string.isRequired,
     ).isRequired,
   }).isRequired,
+  updateScore: PropTypes.func.isRequired,
 };
 
-export default Question;
+const mapDispatchToProps = (dispatch) => ({
+  updateScore: (score) => dispatch(updateScoreAction(score)),
+});
+
+export default connect(null, mapDispatchToProps)(Question);
