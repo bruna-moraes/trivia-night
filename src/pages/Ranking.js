@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Header from '../components/Header';
+import RankingCard from '../components/RankingCard';
 
 class Ranking extends React.Component {
   goToHome = () => {
@@ -9,20 +9,33 @@ class Ranking extends React.Component {
     history.push('/');
   };
 
+  getPlayersRanking = () => {
+    const players = JSON.parse(localStorage.getItem('players') || '[]');
+    players.sort((a, b) => b.score - a.score);
+    return players;
+  };
+
   render() {
+    const players = this.getPlayersRanking();
     return (
       <div>
-        <Header />
-        <div>
-          <h1 data-testid="ranking-title">Ranking</h1>
-          <button
-            type="button"
-            data-testid="btn-go-home"
-            onClick={ this.goToHome }
-          >
-            Início
-          </button>
-        </div>
+        <h1 data-testid="ranking-title">Ranking</h1>
+        {
+          players.map((player, index) => (
+            <RankingCard
+              key={ index }
+              player={ player }
+              index={ index }
+            />
+          ))
+        }
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ this.goToHome }
+        >
+          Início
+        </button>
       </div>
     );
   }

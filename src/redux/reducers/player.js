@@ -14,6 +14,8 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       name: action.payload.name,
       gravatarEmail: action.payload.email,
+      score: 0,
+      assertions: 0,
     };
   }
   case UPDATE_SCORE: {
