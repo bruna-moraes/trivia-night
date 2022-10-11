@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import Question from '../components/Question';
@@ -34,10 +35,15 @@ class Game extends React.Component {
 
   updateIndex = () => {
     const { questionIndex } = this.state;
+    const { player, history } = this.props;
     const lastQuestionIndex = 4;
 
     if (questionIndex === lastQuestionIndex) {
-      const { history } = this.props;
+      const localPlayers = JSON.parse(localStorage.getItem('players') || '[]');
+
+      localStorage
+        .setItem('players', JSON.stringify([...localPlayers, player]));
+
       history.push('/feedback');
     }
 
@@ -75,8 +81,12 @@ class Game extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  player: state.player,
+});
+
 Game.propTypes = {
   history: PropTypes.array,
 }.isRequired;
 
-export default Game;
+export default connect(mapStateToProps)(Game);
