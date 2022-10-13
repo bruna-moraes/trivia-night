@@ -7,8 +7,6 @@ import Ranking from './pages/Ranking';
 import Feedback from './pages/Feedback';
 import './App.css';
 
-// import logo from './trivia.png';
-
 export default function App() {
   return (
     <Switch>
