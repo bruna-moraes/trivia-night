@@ -13,7 +13,13 @@ class Feedback extends React.Component {
     const { history } = this.props;
     history.push('/');
   };
-
+  message = () => {
+    const { assertions } = this.props;
+    const mediumResult = 3;
+    if (assertions < mediumResult) return 'Could be better...';
+    if (assertions >= mediumResult) return 'Well Done!';
+  }
+  
   render() {
     const { score, assertions } = this.props;
     return (
@@ -36,6 +42,7 @@ class Feedback extends React.Component {
         >
           Jogar Novamente
         </button>
+        <p data-testid="feedback-text">{ this.message() }</p>
       </div>
     );
   }
