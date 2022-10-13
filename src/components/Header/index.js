@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
+import './index.css';
+
+import starIcon from '../../images/starIcon.svg';
 
 class Header extends React.Component {
   state = {
@@ -25,13 +28,26 @@ class Header extends React.Component {
     const { emailHASH } = this.state;
     return (
       <header>
-        <img
-          src={ `https://www.gravatar.com/avatar/${emailHASH}` }
-          alt={ `Imagem do ${name}` }
-          data-testid="header-profile-picture"
-        />
-        <h3 data-testid="header-player-name">{name}</h3>
-        <h3 data-testid="header-score">{ score }</h3>
+        <div className="header-content">
+          <div className="profile-container">
+            <img
+              className="profile-image"
+              src={ `https://www.gravatar.com/avatar/${emailHASH}` }
+              alt={ `Imagem do ${name}` }
+              data-testid="header-profile-picture"
+            />
+            <h3 data-testid="header-player-name">{name}</h3>
+          </div>
+          <div className="score-container">
+            <img
+              className="star-icon"
+              src={ starIcon }
+              alt="Icone Estrela"
+            />
+            <span>Score:</span>
+            <h3 data-testid="header-score">{ score }</h3>
+          </div>
+        </div>
       </header>
     );
   }

@@ -1,0 +1,43 @@
+header {
+  align-items: center;
+  background-color: rgb(11, 11, 11);
+  color: white;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.header-content {
+  display: flex;
+  gap: 112px;
+  justify-content: end;
+  width: 80%;
+}
+
+.profile-container {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+}
+
+.profile-image {
+  border: 2px solid rgb(243, 46, 124);
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+}
+
+.score-container {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+
+}
+
+.star-icon {
+  height: 32px;
+  width: 32px;
+}
