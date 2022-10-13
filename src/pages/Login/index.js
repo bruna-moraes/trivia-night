@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addLogin } from '../redux/actions';
+
+import { addLogin } from '../../redux/actions';
+import './index.css';
+
+import logo from '../../images/logo.svg';
 
 class Login extends React.Component {
   state = {
@@ -46,44 +50,53 @@ class Login extends React.Component {
     const { isDisabled, name, email } = this.state;
 
     return (
-      <form>
-        <label htmlFor="name">
-          Name:
+      <main className="login-page">
+        <img
+          className="logo"
+          src={ logo }
+          alt="logotipo"
+        />
+        <form className="form-login">
           <input
+            aria-label="name"
             value={ name }
+            placeholder="Name"
             type="text"
             data-testid="input-player-name"
             name="name"
             onChange={ this.handleChange }
           />
-        </label>
-
-        <label htmlFor="input-gravatar-email">
-          Email:
           <input
+            aria-label="email"
             value={ email }
+            placeholder="Email"
             type="email"
             data-testid="input-gravatar-email"
             onChange={ this.handleChange }
             name="email"
           />
-        </label>
+          <button
+            className="pink-button"
+            data-testid="btn-play"
+            disabled={ !isDisabled }
+            onClick={ this.handleClick }
+            type="button"
+          >
+            Play
+          </button>
+        </form>
+
+        <hr className="divider" />
+
         <button
-          data-testid="btn-play"
-          disabled={ !isDisabled }
-          onClick={ this.handleClick }
-          type="button"
-        >
-          Play
-        </button>
-        <button
+          className="blue-button"
           data-testid="btn-settings"
           type="button"
           onClick={ this.clickSettingsPage }
         >
           Settings
         </button>
-      </form>
+      </main>
     );
   }
 }

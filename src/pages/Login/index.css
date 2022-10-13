@@ -1,0 +1,48 @@
+.login-page {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.logo {
+  width: 450px;
+}
+
+.login-page button {
+  margin: 16px 0;
+  width: 500px;
+}
+
+.login-page input {
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid rgb(0, 148, 255);
+  border-radius: 4px;
+  color: white;
+  font-size: 20px;
+  padding: 8px 16px;
+  width: 500px;
+}
+
+.login-page input::placeholder {
+  color: rgb(165, 165, 165);
+}
+
+.login-page input:focus {
+  border: 2px solid rgb(243, 46, 124);
+  outline: none;
+}
+
+.form-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.divider {
+  height: 2px;
+  width: 300px;
+}
