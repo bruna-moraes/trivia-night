@@ -2,8 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updateScoreAction } from '../redux/actions';
-import shuffleArray from '../utils/shuffleArray';
+import { updateScoreAction } from '../../redux/actions';
+import shuffleArray from '../../utils/shuffleArray';
+import './index.css';
+
+const answerLetterDict = {
+  0: 'A',
+  1: 'B',
+  2: 'C',
+  3: 'D',
+};
 
 class Question extends React.Component {
   state = {
@@ -111,66 +119,86 @@ class Question extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <span
-          data-testid="question-category"
-        >
-          {category}
-        </span>
-        <span
-          data-testid="question-text"
-        >
-          {question}
-        </span>
-        <span>
-          { timer }
-        </span>
-
-        <div data-testid="answer-options">
-          {
-            answers.map((answer) => {
-              if (answer === correctAnswer) {
+      <div className="question-container">
+        <div className="question-content">
+          <section className="question-section">
+            <h2
+              data-testid="question-category"
+            >
+              {category}
+            </h2>
+            <p
+              data-testid="question-text"
+            >
+              {question}
+            </p>
+            <span>
+              { timer }
+            </span>
+          </section>
+          <section
+            data-testid="answer-options"
+            className="answers-section"
+          >
+            {
+              answers.map((answer, index) => {
+                if (answer === correctAnswer) {
+                  return (
+                    <div
+                      className="answer-container"
+                      key={ answer }
+                    >
+                      <p className="answer-letter">{answerLetterDict[index]}</p>
+                      <button
+                        data-testid="correct-answer"
+                        type="button"
+                        onClick={ () => this.handleAnswer(answer) }
+                        className={ answered ? 'correct-answered answer' : 'answer' }
+                        disabled={ answered }
+                      >
+                        {answer}
+                      </button>
+                    </div>
+                  );
+                }
+                const incorrectAnswerIndex = incorrectAnswers.indexOf(answer);
                 return (
-                  <button
+                  <div
+                    className="answer-container"
                     key={ answer }
-                    type="button"
-                    data-testid="correct-answer"
-                    onClick={ () => this.handleAnswer(answer) }
-                    className={ answered ? 'correct-answered' : '' }
-                    disabled={ answered }
                   >
-                    {correctAnswer}
-                  </button>
+                    <p className="answer-letter">{answerLetterDict[index]}</p>
+                    <button
+                      data-testid={ `wrong-answer-${incorrectAnswerIndex}` }
+                      type="button"
+                      onClick={ () => this.handleAnswer(answer) }
+                      className={ answered ? 'incorrect-answered answer' : 'answer' }
+                      disabled={ answered }
+                    >
+                      {answer}
+                    </button>
+                  </div>
                 );
-              }
-
-              const index = incorrectAnswers.indexOf(answer);
-
-              return (
-                <button
-                  key={ answer }
-                  type="button"
-                  data-testid={ `wrong-answer-${index}` }
-                  onClick={ () => this.handleAnswer(answer) }
-                  className={ answered ? 'incorrect-answered' : '' }
-                  disabled={ answered }
-                >
-                  {answer}
-                </button>
-              );
-            })
-          }
+              })
+            }
+          </section>
         </div>
 
-        { answered ? (
-          <button
-            data-testid="btn-next"
-            type="button"
-            onClick={ this.goToNextQuestion }
-          >
-            Next
-          </button>
-        ) : null}
+        {
+          answered
+            ? (
+              <button
+                className="pink-button next-button"
+                data-testid="btn-next"
+                type="button"
+                onClick={ this.goToNextQuestion }
+              >
+                Next
+              </button>
+            )
+            : null
+        }
+
       </div>
     );
   }
