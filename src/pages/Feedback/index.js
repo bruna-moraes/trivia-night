@@ -27,6 +27,13 @@ class Feedback extends React.Component {
     history.push('/');
   };
 
+  message = () => {
+    const { assertions } = this.props;
+    const mediumResult = 3;
+    if (assertions < mediumResult) return 'Could be better...';
+    if (assertions >= mediumResult) return 'Well Done!';
+  };
+
   transformHASH = () => {
     const { emailGravatar } = this.props;
     const emailHASH = md5(emailGravatar).toString();
@@ -55,7 +62,7 @@ class Feedback extends React.Component {
               alt={ `Imagem do ${name}` }
               data-testid="header-profile-picture"
             />
-            <h2 data-testid="feedback-text">Could be better...</h2>
+            <h2 data-testid="feedback-text">{ this.message() }</h2>
             <div>
               <span>Você acertou </span>
               <span data-testid="feedback-total-question">{assertions}</span>
