@@ -1,0 +1,31 @@
+.ranking-card {
+  align-items: center;
+  background-color: rgb(23, 23, 23);
+  border: 2px solid rgb(0, 148, 255);
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  width: 100%;
+}
+
+.ranking-card h3 {
+  color: white;
+}
+
+.ranking-profile-container {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.ranking-profile-image {
+  border-radius: 50%;
+  width: 64px;
+}
+
+.ranking-score-container {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
