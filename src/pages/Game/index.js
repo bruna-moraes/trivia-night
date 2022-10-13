@@ -3,9 +3,12 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-import Question from '../components/Question';
-import fetchTrivia from '../services/fetchTrivia';
+import Header from '../../components/Header';
+import Question from '../../components/Question';
+import fetchTrivia from '../../services/fetchTrivia';
+import './index.css';
+
+import logo from '../../images/logo.svg';
 
 class Game extends React.Component {
   state = {
@@ -55,25 +58,26 @@ class Game extends React.Component {
   render() {
     const { questions, isLoading, shouldLogout, questionIndex } = this.state;
 
+    if (shouldLogout) return <Redirect to="/" />;
+
     return (
-      <div>
+      <div className="game-page">
+        <Header />
         {
-          shouldLogout
-            ? <Redirect to="/" />
+          isLoading
+            ? <span>Loading...</span>
             : (
-              <div>
-                <Header />
-                {
-                  isLoading
-                    ? <span>Loading...</span>
-                    : (
-                      <Question
-                        question={ questions[questionIndex] }
-                        updateIndex={ this.updateIndex }
-                      />
-                    )
-                }
-              </div>
+              <main className="game-content">
+                <img
+                  className="logo page-logo"
+                  src={ logo }
+                  alt="logotipo"
+                />
+                <Question
+                  question={ questions[questionIndex] }
+                  updateIndex={ this.updateIndex }
+                />
+              </main>
             )
         }
       </div>
