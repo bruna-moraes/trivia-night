@@ -46,7 +46,7 @@ class Ranking extends React.Component {
             data-testid="btn-go-home"
             onClick={ this.goToHome }
           >
-            Jogar Novamente
+            Play again
           </button>
         </main>
       </div>

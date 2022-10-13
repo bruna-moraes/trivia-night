@@ -64,11 +64,11 @@ class Feedback extends React.Component {
             />
             <h2 data-testid="feedback-text">{ this.message() }</h2>
             <div>
-              <span>Você acertou </span>
+              <span>You got </span>
               <span data-testid="feedback-total-question">{assertions}</span>
-              <span> questões! Total de </span>
+              <span> questions right! Total: </span>
               <span data-testid="feedback-total-score">{score}</span>
-              <span> pontos</span>
+              <span> points</span>
             </div>
           </div>
           <div className="feedback-button-container">
@@ -86,7 +86,7 @@ class Feedback extends React.Component {
               data-testid="btn-play-again"
               onClick={ this.clickPlayAgain }
             >
-              Jogar Novamente
+              Play again
             </button>
           </div>
         </main>
