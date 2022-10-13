@@ -16,13 +16,5 @@ export default function App() {
       <Route path="/ranking" component={ Ranking } />
       <Route path="/feedback" component={ Feedback } />
     </Switch>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={ logo } className="App-logo" alt="logo" />
-    //     <p>SUA VEZ</p>
-    //   </header>
-    // </div>
-    // <div>
-    // </div>
   );
 }
