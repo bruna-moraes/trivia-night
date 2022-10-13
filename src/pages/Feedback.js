@@ -20,6 +20,7 @@ class Feedback extends React.Component {
     if (assertions < mediumResult) return 'Could be better...';
     if (assertions >= mediumResult) return 'Well Done!';
   };
+
   render() {
     const { score, assertions } = this.props;
     return (
