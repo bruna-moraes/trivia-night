@@ -13,7 +13,7 @@ header {
 .header-content {
   display: flex;
   gap: 112px;
-  justify-content: end;
+  justify-content: flex-end;
   width: 80%;
 }
 
